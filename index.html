@@ -9,137 +9,143 @@
 </body>
 </html>
 <script>
-const playsenum =
-{
-    Rock: 'rock',
-    Paper: 'paper',
-    Scissors: 'scissors'
-} 
-let plays = [playsenum.Rock, playsenum.Paper, playsenum.Scissors];
-function random(number){
-    let res = Math.floor(Math.random()*number);
-    return res;
-}
-function assert(condition, message) {
-    if (!condition) {
-        message = message || "Assertion failed";
-        alert(message);
-        if (typeof Error !== "undefined") {
-            throw new Error(message);
+    //#region Helper Functions 
+    const playsenum =
+    {
+        Rock: 'rock',
+        Paper: 'paper',
+        Scissors: 'scissors'
+    } 
+    let plays = [playsenum.Rock, playsenum.Paper, playsenum.Scissors];
+    function random(number){
+        let res = Math.floor(Math.random()*number);
+        return res;
+    }
+    function assert(condition, message) {
+        if (!condition) {
+            message = message || "Assertion failed";
+            alert(message);
+            if (typeof Error !== "undefined") {
+                throw new Error(message);
+            }
+            throw message; // Fallback
         }
-        throw message; // Fallback
     }
-}
-function computerPlay () {
-    return plays[random(plays.length)];
-}
-function playOneRound (playerSelection, computerSelection){
-    let msg, winningChoice, losingChoice, outcome = "";
-    switch (playerSelection.toLowerCase()) {
-        case playsenum.Rock:
-            if (computerSelection === playsenum.Scissors) {
-                msg = "You win! :)";
-                winningChoice = playerSelection;
-                losingChoice = computerSelection;
+    //#endregion
+    //#region Main Functions
+    //get the human choice
+    function getHumanPlay(){
+        let ans = "", promptMsg = "Rock, Paper, or scissors?";
+        let shouldContinue = false;
+        while (shouldContinue == false){
+            ans = prompt(promptMsg);
+            if (ans.match(/^\s*scissor\s*$|^\s*rock\s*$|^\s*paper\s*$/)) {
+                shouldContinue = true;
             }
-            else if (computerSelection === playsenum.Paper)  {
-                msg = "You lose :(!";
-                winningChoice = computerSelection;
-                losingChoice = playerSelection;
-            }
-            else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
-                msg = `Looks like a tie.  You both chose ${playerSelection}`;
-                outcome = "tie";
-            }
-        break;
-        case playsenum.Paper:
-            if (computerSelection === playsenum.Rock) {
-                msg = "You win! :)";
-                winningChoice = playerSelection;
-                losingChoice = computerSelection;
-            }
-            else if (computerSelection === playsenum.Scissors)  {
-                msg = "You lose :(!";
-                winningChoice = computerSelection;
-                losingChoice = playerSelection;
-            }
-            else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
-                msg = `Looks like a tie.  You both chose ${playerSelection}`;
-                outcome = "tie";
-            }
-        break;
-        case playsenum.Scissors:
-            if (computerSelection === playsenum.Paper) {
-                msg = "You win! :)";
-                winningChoice = playerSelection;
-                losingChoice = computerSelection;
-            }
-            else if (computerSelection === playsenum.Rock)  {
-                msg = "You lose :(!";
-                winningChoice = computerSelection;
-                losingChoice = playerSelection;
-            }
-            else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
-                msg = `Looks like a tie.  You both chose ${playerSelection}`;
-                outcome = "tie";
-            }
-        break;
-    }
-    return (outcome != 'tie') ?  `${msg}.\n${winningChoice} beats ${losingChoice}` : msg;
-}
-function getHumanPlay(){
-    let ans = "", promptMsg = "Rock, Paper, or scissors?";
-    let shouldContinue = false;
-    while (shouldContinue == false){
-        ans = prompt(promptMsg);
-        if (ans.match(/^\s*scissor\s*$|^\s*rock\s*$|^\s*paper\s*$/)) {
-            shouldContinue = true;
+            promptMsg = `${ans} is not a valid option.  Type "rock", "paper", or "scissors".`;
         }
-        promptMsg = `${ans} is not a valid option.  Type "rock", "paper", or "scissors".`;
+        return ans.trim();
     }
-    return ans.trim();
-}
-function getGameResult(score, roundsPlayed){
-    //positive score means player won by score amount of games.  Negative means computer and 0 means tie.
-    alert(`final score: ${score} and roundsPlayed: ${roundsPlayed}`);
-    assert(Math.abs(score) <= roundsPlayed, "The score must be less than or equal to roundsPlayed");
-    let gameResult, playerScore, computerScore, scoreMessage;
-    if (score == 0) {
-        scoreMessage = 'Looks like we have a tie!';
+    //computer picks an option
+    function computerPlay () {
+        return plays[random(plays.length)];
     }
-    else if (score > 0){
-        scoreMessage = 'Humanity prevails THIS time';
-    }
-    else {
-        scoreMessage = 'Was there ever really ANY doubt about machine superiority?';
-    }
-    playerScore = (roundsPlayed + score) /2;
-    computerScore = roundsPlayed - playerScore
-    return `Result of ${roundsPlayed} Round Game:\n\nYou won ${playerScore} games.\nThe computer won ${computerScore} games.\n\n${(scoreMessage)}`
-}
-function game(roundsPlayed) {
-    //a game consists of a number of roundsPlayed where each round is player picking then computer than tallying
-    let score = 0;
-    for (let index = 0; index < parseInt(roundsPlayed); index++) {
-        // alert(`score: ${score}\nindex; ${index}\nroundsPlayed: ${roundsPlayed}\n index < roundsPlayed: ${index < roundsPlayed}`);
-        let result = playOneRound(getHumanPlay(),computerPlay());
-        alert(`${result}`);
-        if (result.match('win')) {
-            score += 1;
-            //alert('won');
+    //play one round 
+    function playOneRound (playerSelection, computerSelection){
+        let msg, winningChoice, losingChoice, outcome = "";
+        switch (playerSelection.toLowerCase()) {
+            case playsenum.Rock:
+                if (computerSelection === playsenum.Scissors) {
+                    msg = "You win! :)";
+                    winningChoice = playerSelection;
+                    losingChoice = computerSelection;
+                }
+                else if (computerSelection === playsenum.Paper)  {
+                    msg = "You lose :(!";
+                    winningChoice = computerSelection;
+                    losingChoice = playerSelection;
+                }
+                else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                    msg = `Looks like a tie.  You both chose ${playerSelection}`;
+                    outcome = "tie";
+                }
+            break;
+            case playsenum.Paper:
+                if (computerSelection === playsenum.Rock) {
+                    msg = "You win! :)";
+                    winningChoice = playerSelection;
+                    losingChoice = computerSelection;
+                }
+                else if (computerSelection === playsenum.Scissors)  {
+                    msg = "You lose :(!";
+                    winningChoice = computerSelection;
+                    losingChoice = playerSelection;
+                }
+                else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                    msg = `Looks like a tie.  You both chose ${playerSelection}`;
+                    outcome = "tie";
+                }
+            break;
+            case playsenum.Scissors:
+                if (computerSelection === playsenum.Paper) {
+                    msg = "You win! :)";
+                    winningChoice = playerSelection;
+                    losingChoice = computerSelection;
+                }
+                else if (computerSelection === playsenum.Rock)  {
+                    msg = "You lose :(!";
+                    winningChoice = computerSelection;
+                    losingChoice = playerSelection;
+                }
+                else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                    msg = `Looks like a tie.  You both chose ${playerSelection}`;
+                    outcome = "tie";
+                }
+            break;
         }
-        else if (result.match('lose')) {
-            score -= 1;
-            //alert('lost');
+        return (outcome != 'tie') ?  `${msg}.\n${winningChoice} beats ${losingChoice}` : msg;
+    }
+    //Returns a string showing the result of game
+    function getGameResult(score, roundsPlayed){
+        //positive score means player won by score amount of games.  Negative means computer and 0 means tie.
+        alert(`final score: ${score} and roundsPlayed: ${roundsPlayed}`);
+        assert(Math.abs(score) <= roundsPlayed, "The score must be less than or equal to roundsPlayed");
+        let gameResult, playerScore, computerScore, scoreMessage;
+        if (score == 0) {
+            scoreMessage = 'Looks like we have a tie!';
+        }
+        else if (score > 0){
+            scoreMessage = 'Humanity prevails THIS time';
         }
         else {
-            score += 0;
-            //alert('tie');
+            scoreMessage = 'Was there ever really ANY doubt about machine superiority?';
         }
+        playerScore = (roundsPlayed + score) /2;
+        computerScore = roundsPlayed - playerScore
+        return `Result of ${roundsPlayed} Round Game:\n\nYou won ${playerScore} games.\nThe computer won ${computerScore} games.\n\n${(scoreMessage)}`
     }
-    return getGameResult(score, roundsPlayed);
-}
-//alert(getGameResult(-10, 10));
-alert(game(5));
-
+    //The main function that plays a game.
+    function game(roundsPlayed) {
+        let score = 0;
+        for (let index = 0; index < parseInt(roundsPlayed); index++) {
+            // alert(`score: ${score}\nindex; ${index}\nroundsPlayed: ${roundsPlayed}\n index < roundsPlayed: ${index < roundsPlayed}`);
+            let result = playOneRound(getHumanPlay(),computerPlay());
+            alert(`${result}`);
+            if (result.match('win')) {
+                score += 1;
+                //alert('won');
+            }
+            else if (result.match('lose')) {
+                score -= 1;
+                //alert('lost');
+            }
+            else {
+                score += 0;
+                //alert('tie');
+            }
+        }
+        return getGameResult(score, roundsPlayed);
+    }
+    //#endregion
+    alert(game(5));
 </script>
