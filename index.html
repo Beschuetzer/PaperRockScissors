@@ -20,6 +20,16 @@ function random(number){
     let res = Math.floor(Math.random()*number);
     return res;
 }
+function assert(condition, message) {
+    if (!condition) {
+        message = message || "Assertion failed";
+        alert(message);
+        if (typeof Error !== "undefined") {
+            throw new Error(message);
+        }
+        throw message; // Fallback
+    }
+}
 function computerPlay () {
     return plays[random(plays.length)];
 }
@@ -75,18 +85,61 @@ function playOneRound (playerSelection, computerSelection){
             }
         break;
     }
-    // alert(`msg: ${msg}`);
-    // alert(`Winning: ${winningChoice.toLowerCase()}\nLosing: ${losingChoice.toLowerCase()}\nNotEqual: ${winningChoice.toLowerCase() != losingChoice.toLowerCase()} `);
-    // if (winningChoice.toLowerCase() != losingChoice.toLowerCase()) {
-    //     alert(1);
-    //     return `${msg}.\n${winningChoice} beats ${losingChoice}`;
-    // }
-    // else {
-    //     alert(2);
-    //     return msg;
-    // }
     return (outcome != 'tie') ?  `${msg}.\n${winningChoice} beats ${losingChoice}` : msg;
 }
-alert(playOneRound(getHumanPlay(),computerPlay()));
+function getHumanPlay(){
+    let ans = "", promptMsg = "Rock, Paper, or scissors?";
+    let shouldContinue = false;
+    while (shouldContinue == false){
+        ans = prompt(promptMsg);
+        if (ans.match(/^\s*scissor\s*$|^\s*rock\s*$|^\s*paper\s*$/)) {
+            shouldContinue = true;
+        }
+        promptMsg = `${ans} is not a valid option.  Type "rock", "paper", or "scissors".`;
+    }
+    return ans.trim();
+}
+function getGameResult(score, roundsPlayed){
+    //positive score means player won by score amount of games.  Negative means computer and 0 means tie.
+    alert(`final score: ${score} and roundsPlayed: ${roundsPlayed}`);
+    assert(Math.abs(score) <= roundsPlayed, "The score must be less than or equal to roundsPlayed");
+    let gameResult, playerScore, computerScore, scoreMessage;
+    if (score == 0) {
+        scoreMessage = 'Looks like we have a tie!';
+    }
+    else if (score > 0){
+        scoreMessage = 'Humanity prevails THIS time';
+    }
+    else {
+        scoreMessage = 'Was there ever really ANY doubt about machine superiority?';
+    }
+    playerScore = (roundsPlayed + score) /2;
+    computerScore = roundsPlayed - playerScore
+    return `Result of ${roundsPlayed} Round Game:\n\nYou won ${playerScore} games.\nThe computer won ${computerScore} games.\n\n${(scoreMessage)}`
+}
+function game(roundsPlayed) {
+    //a game consists of a number of roundsPlayed where each round is player picking then computer than tallying
+    let score = 0;
+    for (let index = 0; index < parseInt(roundsPlayed); index++) {
+        // alert(`score: ${score}\nindex; ${index}\nroundsPlayed: ${roundsPlayed}\n index < roundsPlayed: ${index < roundsPlayed}`);
+        let result = playOneRound(getHumanPlay(),computerPlay());
+        alert(`${result}`);
+        if (result.match('win')) {
+            score += 1;
+            //alert('won');
+        }
+        else if (result.match('lose')) {
+            score -= 1;
+            //alert('lost');
+        }
+        else {
+            score += 0;
+            //alert('tie');
+        }
+    }
+    return getGameResult(score, roundsPlayed);
+}
+//alert(getGameResult(-10, 10));
+alert(game(5));
 
 </script>
