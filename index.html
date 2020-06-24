@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+const playsenum =
+{
+    Rock: 'rock',
+    Paper: 'paper',
+    Scissors: 'scissors'
+} 
+let plays = [playsenum.Rock, playsenum.Paper, playsenum.Scissors];
+function random(number){
+    let res = Math.floor(Math.random()*number);
+    return res;
+}
+function computerPlay () {
+    return plays[random(plays.length)];
+}
+function playOneRound (playerSelection, computerSelection){
+    let msg, winningChoice, losingChoice, outcome = "";
+    switch (playerSelection.toLowerCase()) {
+        case playsenum.Rock:
+            if (computerSelection === playsenum.Scissors) {
+                msg = "You win! :)";
+                winningChoice = playerSelection;
+                losingChoice = computerSelection;
+            }
+            else if (computerSelection === playsenum.Paper)  {
+                msg = "You lose :(!";
+                winningChoice = computerSelection;
+                losingChoice = playerSelection;
+            }
+            else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                msg = `Looks like a tie.  You both chose ${playerSelection}`;
+                outcome = "tie";
+            }
+        break;
+        case playsenum.Paper:
+            if (computerSelection === playsenum.Rock) {
+                msg = "You win! :)";
+                winningChoice = playerSelection;
+                losingChoice = computerSelection;
+            }
+            else if (computerSelection === playsenum.Scissors)  {
+                msg = "You lose :(!";
+                winningChoice = computerSelection;
+                losingChoice = playerSelection;
+            }
+            else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                msg = `Looks like a tie.  You both chose ${playerSelection}`;
+                outcome = "tie";
+            }
+        break;
+        case playsenum.Scissors:
+            if (computerSelection === playsenum.Paper) {
+                msg = "You win! :)";
+                winningChoice = playerSelection;
+                losingChoice = computerSelection;
+            }
+            else if (computerSelection === playsenum.Rock)  {
+                msg = "You lose :(!";
+                winningChoice = computerSelection;
+                losingChoice = playerSelection;
+            }
+            else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                msg = `Looks like a tie.  You both chose ${playerSelection}`;
+                outcome = "tie";
+            }
+        break;
+    }
+    // alert(`msg: ${msg}`);
+    // alert(`Winning: ${winningChoice.toLowerCase()}\nLosing: ${losingChoice.toLowerCase()}\nNotEqual: ${winningChoice.toLowerCase() != losingChoice.toLowerCase()} `);
+    // if (winningChoice.toLowerCase() != losingChoice.toLowerCase()) {
+    //     alert(1);
+    //     return `${msg}.\n${winningChoice} beats ${losingChoice}`;
+    // }
+    // else {
+    //     alert(2);
+    //     return msg;
+    // }
+    return (outcome != 'tie') ?  `${msg}.\n${winningChoice} beats ${losingChoice}` : msg;
+}
+alert(playOneRound(getHumanPlay(),computerPlay()));
+
+</script>
