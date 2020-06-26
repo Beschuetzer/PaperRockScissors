@@ -3,23 +3,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <div class="container_content">
-        <h2>Simple Rock Paper Scissors (or is it?)</h2>
-        <div class="content">
-            <label for="textbox_number_of_games">Number of Rounds to Play:</label>
-            <input id="textbox_number_of_games" sty type="text">
-            <button class="btn_default" onclick="game()">Start Game</button>
-
-            <div class="choice_buttons">
-                <button class="btn_default">Rock</button>
-                <button class="btn_default">Paper</button>
-                <button class="btn_default">Scissors</button>
-            </div>
-        </div>
-    </div>
+    
 </body>
 </html>
 <script>
@@ -139,13 +125,7 @@
         return `Result of ${roundsPlayed} Round Game:\n\nYou won ${playerScore} games.\nThe computer won ${computerScore} games.\n\n${(scoreMessage)}`
     }
     //The main function that plays a game.
-    function game() {
-        const roundsPlayed = parseInt(document.getElementById('textbox_number_of_games').value);
-        if (!roundsPlayed){
-            alert("please enter an integer for the number of round you want to play");
-            return null;
-        }
-        
+    function game(roundsPlayed) {
         let score = 0;
         for (let index = 0; index < parseInt(roundsPlayed); index++) {
             // alert(`score: ${score}\nindex; ${index}\nroundsPlayed: ${roundsPlayed}\n index < roundsPlayed: ${index < roundsPlayed}`);
@@ -167,4 +147,5 @@
         return getGameResult(score, roundsPlayed);
     }
     //#endregion
+    alert(game(5));
 </script>
