@@ -9,22 +9,66 @@
     <div class="container_content">
         <h2>Simple Rock Paper Scissors (or is it?)</h2>
         <div class="content">
-            <label for="textbox_number_of_games">Number of Rounds to Play:</label>
-            <input id="textbox_number_of_games" sty type="text">
-            <button class="btn_default" onclick="game()">Start Game</button>
+            <div class="round_text">
+                <label for="textbox_number_of_games">Number of Rounds to Play:</label>
+                <input id="textbox_number_of_games" sty type="text">
+                <p id="p_CurrentRound">Current Round: 0</p>
+            </div>
+            <div class="btn_start">
+                <button id="btn_start" class="btn_default" onclick="game()">Start Game</button>
+            </div>
             <div class="choice_stuff">
-                <p id="p_choice">Make a choice</p>
+                <p id="instructions">Input Number of Rounds to Play and Hit 'Start Game'</p>
                 <div class="choice_buttons">
                     <button id="btn_rock" class="btn_default btn_choice">Rock</button>
                     <button id="btn_paper" class="btn_default btn_choice">Paper</button>
                     <button id="btn_scissors" class="btn_default btn_choice">Scissors</button>
                 </div>
             </div>
+            <div class="scoring">
+                <div class="your_scores">
+                    <p class="your_score">Your Score:</p>
+                    <p id="human_score" class="your_score">0</p>
+                </div>
+                <div class="computer_scores">
+                    <p id="computer_score">Computer Score:</p>
+                    <p id="computer_score" class="computer_score">0</p>
+                </div>
+                <div class="your_score_details">
+                    <div class="your_wins">
+                        <p class="score_detail">Wins:</p>
+                        <p id="your_wins" class="score_detail">0</p>
+                    </div>
+                    <div class="your_ties">
+                        <p class="score_detail">Ties:</p>
+                        <p id="your_ties" class="score_detail">0</p>
+                    </div>
+                    <div class="your_losses">
+                        <p class="score_detail">Losses:</p>
+                        <p id="your_losses" class="score_detail">0</p>
+                    </div>
+                </div>
+                <div class="computer_score_details">
+                    <div class="computer_wins">
+                        <p class="score_detail">Wins:</p>
+                        <p id="computer_wins" class="score_detail">0</p>
+                    </div>
+                    <div class="computer_wins">
+                        <p class="score_detail">Ties:</p>
+                        <p id="computer_ties" class="score_detail">0</p>
+                    </div>
+                    <div class="computer_wins">
+                        <p class="score_detail">Losses:</p>
+                        <p id="computer_losses" class="score_detail">0</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>
 </html>
-<script>
+<script>    
+
     //#region Helper Functions 
     const playsenum =
     {
@@ -50,7 +94,7 @@
     //#endregion
     //#region Main Functions
     //get the human choice
-    function getHumanPlay(){
+    function getHumanPlayOld(){
         let ans = "", promptMsg = "Rock, Paper, or scissors?";
         let shouldContinue = false;
         while (shouldContinue == false){
@@ -61,6 +105,15 @@
             promptMsg = `${ans} is not a valid option.  Type "rock", "paper", or "scissors".`;
         }
         return ans.trim();
+    }
+    function getHumanPlay(e){
+        console.log(e.srcElement.textContent);
+        return e.srcElement.textContent.trim();
+    }
+    function stopGame(e){
+        console.log(e.srcElement.textContent);
+        if (e.srcElement.textContent === 'Stop') {return null}
+        //find a way to stop 
     }
     //computer picks an option
     function computerPlay () {
@@ -147,7 +200,22 @@
             alert("please enter an integer for the number of round you want to play");
             return null;
         }
+        const btn_start = document.getElementById('btn_start');
+        const btn_rock = document.getElementById('btn_rock');
+        const btn_paper = document.getElementById('btn_paper');
+        const btn_scissors = document.getElementById('btn_scissors');
+        const instructions = document.getElementById('instructions');
+        btn_paper.addEventListener('click',getHumanPlay);
+        btn_rock.addEventListener('click',getHumanPlay);
+        btn_scissors.addEventListener('click',getHumanPlay);
+        btn_start.addEventListener('click',stopGame);
         
+        instructions.textContent = "Make a Selection Below:";
+        btn_start.textContent = "Stop";
+        btn_rock.classList.add('buttons_visible');
+        btn_paper.classList.add('buttons_visible');
+        btn_scissors.classList.add('buttons_visible');
+
         let score = 0;
         for (let index = 0; index < parseInt(roundsPlayed); index++) {
             // alert(`score: ${score}\nindex; ${index}\nroundsPlayed: ${roundsPlayed}\n index < roundsPlayed: ${index < roundsPlayed}`);
