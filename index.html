@@ -2,20 +2,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Paper, Rock, Scissors</title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <div class="container_content">
-        <h2>Simple Rock Paper Scissors (or is it?)</h2>
+        <h1>Simple Rock Paper Scissors (or is it?)</h1>
         <div class="content">
             <div class="round_text">
-                <label for="textbox_number_of_games">Number of Rounds to Play:</label>
+                <label for="textbox_number_of_games">Play Until # of Wins:</label>
                 <input id="textbox_number_of_games" sty type="text">
                 <p id="p_CurrentRound">Current Round: 0</p>
             </div>
             <div class="btn_start">
-                <button id="btn_start" class="btn_default" onclick="game()">Start Game</button>
+                <button id="btn_start" class="btn_default" onclick="setup()">Start Game</button>
             </div>
             <div class="choice_stuff">
                 <p id="instructions">Input Number of Rounds to Play and Hit 'Start Game'</p>
@@ -68,54 +68,6 @@
 </body>
 </html>
 <script>    
-    let human_choice, score,your_wins,your_losses ,your_ties , computer_wins ,computer_losses ,computer_ties , roundsPlayed;
-    let roundsToPlay = parseInt(document.getElementById('textbox_number_of_games').value);
-    human_choice = "";
-    score = 0, your_wins = 0,your_losses = 0,your_ties = 0;
-    computer_wins = 0,computer_losses = 0,computer_ties = 0;
-    roundsPlayed = 1;
-    const btn_start = document.getElementById('btn_start');
-    const btn_rock = document.getElementById('btn_rock');
-    const btn_paper = document.getElementById('btn_paper');
-    const btn_scissors = document.getElementById('btn_scissors');
-    const instructions = document.getElementById('instructions');
-    const lbl_your_wins = document.getElementById('your_wins');
-    const lbl_your_losses = document.getElementById('your_losses');
-    const lbl_your_ties = document.getElementById('your_ties');
-    
-    const lbl_computer_wins = document.getElementById('computer_wins');
-    const lbl_computer_losses = document.getElementById('computer_losses');
-    const lbl_computer_ties = document.getElementById('computer_ties')
-    const human_score = document.getElementById('human_score')
-    const computer_score = document.getElementById('computer_score')
-
-    function reset(){
-        human_choice = "";
-        score = 0, your_wins = 0,your_losses = 0,your_ties = 0;
-        computer_wins = 0,computer_losses = 0,computer_ties = 0;
-        roundsPlayed = 0;
-        const btn_start = document.getElementById('btn_start');
-        const btn_rock = document.getElementById('btn_rock');
-        const btn_paper = document.getElementById('btn_paper');
-        const btn_scissors = document.getElementById('btn_scissors');
-        const instructions = document.getElementById('instructions');
-        const lbl_your_wins = document.getElementById('your_wins');
-        const lbl_your_losses = document.getElementById('your_losses');
-        const lbl_your_ties = document.getElementById('your_ties');
-        
-        const lbl_computer_wins = document.getElementById('computer_wins');
-        const lbl_computer_losses = document.getElementById('computer_losses');
-        const lbl_computer_ties = document.getElementById('computer_ties')
-        const human_score = document.getElementById('human_score')
-        const computer_score = document.getElementById('computer_score')
-        // lbl_computer_losses.textContent = 0;
-        // lbl_computer_wins.textContent = 0;
-        // lbl_computer_ties.textContent = 0;
-        // lbl_your_losses.textContent = 0;
-        // lbl_your_wins.textContent = 0;
-        // lbl_your_ties.textContent = 0;
-    }
-    //#region Helper Functions 
     const playsenum =
     {
         Rock: 'rock',
@@ -123,6 +75,27 @@
         Scissors: 'scissors'
     } 
     let plays = [playsenum.Rock, playsenum.Paper, playsenum.Scissors];
+    let human_choice, score,your_wins,your_losses ,your_ties , computer_wins ,computer_losses ,computer_ties , roundsPlayed;
+    let roundsToPlay = parseInt(document.getElementById('textbox_number_of_games').value);
+    human_choice = "";
+    score = 0, your_wins = 0,your_losses = 0,your_ties = 0;
+    computer_wins = 0,computer_losses = 0,computer_ties = 0;
+    roundsPlayed = 0;
+    const btn_start = document.getElementById('btn_start');
+    const btn_rock = document.getElementById('btn_rock');
+    const btn_paper = document.getElementById('btn_paper');
+    const btn_scissors = document.getElementById('btn_scissors');
+    const instructions = document.getElementById('instructions');
+    const lbl_your_losses = document.getElementById('your_losses');
+    const lbl_your_ties = document.getElementById('your_ties');
+    const lbl_your_wins = document.getElementById('your_wins');
+    const lbl_computer_wins = document.getElementById('computer_wins');
+    const lbl_computer_losses = document.getElementById('computer_losses');
+    const lbl_computer_ties = document.getElementById('computer_ties')
+    const human_score = document.getElementById('human_score')
+    const computer_score = document.getElementById('computer_score')
+    //#region Helper Functions 
+    
     function random(number){
         let res = Math.floor(Math.random()*number);
         return res;
@@ -140,69 +113,35 @@
     function stopGame(e){
         console.log(e.srcElement.textContent);
         if (e.srcElement.textContent === 'Stop') {return null}
-        //find a way to stop 
+       //find a way to stop 
+    }
+    function getHumanChoice(e){
+        console.log(e.srcElement.textContent);
+        if (e.srcElement.textContent.toLowerCase() === playsenum.Rock) {
+            human_choice = playsenum.Rock;
+        }
+        else if (e.srcElement.textContent.toLowerCase() === playsenum.Paper) {
+            human_choice = playsenum.Paper;
+        } 
+        else if (e.srcElement.textContent.toLowerCase() === playsenum.Scissors) {
+            human_choice = playsenum.Scissors;
+        } 
+        //alert(`human: ${human_choice}`);
+        startPlaying();
+    }
+     function computerPlay () {
+        return plays[random(plays.length)];
+    }
+    function reset(){
+        human_choice = "";
+        score = 0, your_wins = 0,your_losses = 0,your_ties = 0;
+        computer_wins = 0,computer_losses = 0,computer_ties = 0;
+        roundsPlayed = 0;
     }
     //#endregion
     //#region Main Functions
-    //computer picks an option
-    function computerPlay () {
-        return plays[random(plays.length)];
-    }
-    //play one round 
-    function playOneRound (playerSelection, computerSelection){
-        let msg, winningChoice, losingChoice, outcome = "";
-        switch (playerSelection.toLowerCase()) {
-            case playsenum.Rock:
-                if (computerSelection === playsenum.Scissors) {
-                    msg = "You win! :)";
-                    winningChoice = playerSelection;
-                    losingChoice = computerSelection;
-                }
-                else if (computerSelection === playsenum.Paper)  {
-                    msg = "You lose :(!";
-                    winningChoice = computerSelection;
-                    losingChoice = playerSelection;
-                }
-                else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
-                    msg = `Looks like a tie.  You both chose ${playerSelection}`;
-                    outcome = "tie";
-                }
-            break;
-            case playsenum.Paper:
-                if (computerSelection === playsenum.Rock) {
-                    msg = "You win! :)";
-                    winningChoice = playerSelection;
-                    losingChoice = computerSelection;
-                }
-                else if (computerSelection === playsenum.Scissors)  {
-                    msg = "You lose :(!";
-                    winningChoice = computerSelection;
-                    losingChoice = playerSelection;
-                }
-                else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
-                    msg = `Looks like a tie.  You both chose ${playerSelection}`;
-                    outcome = "tie";
-                }
-            break;
-            case playsenum.Scissors:
-                if (computerSelection === playsenum.Paper) {
-                    msg = "You win! :)";
-                    winningChoice = playerSelection;
-                    losingChoice = computerSelection;
-                }
-                else if (computerSelection === playsenum.Rock)  {
-                    msg = "You lose :(!";
-                    winningChoice = computerSelection;
-                    losingChoice = playerSelection;
-                }
-                else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
-                    msg = `Looks like a tie.  You both chose ${playerSelection}`;
-                    outcome = "tie";
-                }
-            break;
-        }
-        return (outcome != 'tie') ?  `${msg}.\n${winningChoice} beats ${losingChoice}` : msg;
-    }
+   
+    
     //Returns a string showing the result of game
     function getGameResult(score, roundsToPlay, lbl_your_wins, lbl_your_ties, lbl_your_losses, lbl_computer_wins, lbl_computer_ties, lbl_computer_losses){
         //positive score means player won by score amount of games.  Negative means computer and 0 means tie.
@@ -222,8 +161,14 @@
         computerScore = roundsToPlay - playerScore;
         return `Result of ${roundsToPlay} Round Game:\n\nYou won ${lbl_your_wins.textContent} games, lost ${lbl_your_losses.textContent} games, and tied ${lbl_your_ties.textContent} games.`
     }
-    //The main function that plays a game.
-    function game() {
+    //The setting up the game.
+    function setup() {
+        lbl_your_losses.textContent = "0";
+        lbl_computer_losses.textContent = "0";
+        lbl_your_wins.textContent = "0";
+        lbl_computer_wins.textContent = "0";
+        lbl_your_ties.textContent = "0";
+        lbl_computer_ties.textContent = "0";
         roundsToPlay = parseInt(document.getElementById('textbox_number_of_games').value);
         if (!roundsToPlay){
             alert("please enter an integer for the number of round you want to play");
@@ -242,21 +187,7 @@
         btn_start.addEventListener('click',stopGame);
         
     }
-    //get the human choice
-    function getHumanChoice(e){
-        console.log(e.srcElement.textContent);
-        if (e.srcElement.textContent.toLowerCase() === playsenum.Rock) {
-            human_choice = playsenum.Rock;
-        }
-        else if (e.srcElement.textContent.toLowerCase() === playsenum.Paper) {
-            human_choice = playsenum.Paper;
-        } 
-        else if (e.srcElement.textContent.toLowerCase() === playsenum.Scissors) {
-            human_choice = playsenum.Scissors;
-        } 
-        //alert(`human: ${human_choice}`);
-        startPlaying();
-    }
+    //Starts the playing part
     function startPlaying(){
         let result = playOneRound(human_choice,computerPlay());
 
@@ -285,16 +216,72 @@
         computer_score.textContent = (computer_wins-computer_losses);
         instructions.textContent = `${result}\nGo Again.`;
        //alert(`checking to end: ${roundsPlayed >= roundsToPlay}`);
-        if (roundsPlayed >= roundsToPlay) {
+        // if (roundsPlayed >= roundsToPlay) {
+        if (your_wins >= roundsToPlay || computer_wins  >= roundsToPlay ) {
             btn_start.textContent = "Start Game";
             btn_rock.classList.remove('buttons_visible');
             btn_paper.classList.remove('buttons_visible');
             btn_scissors.classList.remove('buttons_visible');
             let final_msg = getGameResult(score, roundsToPlay, lbl_your_wins, lbl_your_ties, lbl_your_losses, lbl_computer_wins, lbl_computer_ties, lbl_computer_losses);
-            instructions.textContent = `Final Score:\n\n${final_msg}`;
+            instructions.textContent = your_wins >= roundsToPlay ? 'You got lucky THIS time...' : 'Was there ever any doubt who is superior???\n(Hint: It is not you)';
             reset();
         }
         roundsPlayed++;
+    }
+    //play one round 
+    function playOneRound (playerSelection, computerSelection){
+        let msg, winningChoice, losingChoice, outcome = "";
+        let winningMsg = `You win because random interference in mind reading...\nI though you would pick ${(computerSelection == playsenum.Rock) ? playsenum.Scissors : (computerSelection == playsenum.Paper) ? playsenum.Rock : playsenum.Paper}`;
+        let losingMsg = `You lose because the computer new you would pick ${playerSelection}...`;
+        let tieMsg = `Looks like a tie!  You both chose ${playerSelection}`;
+        switch (playerSelection.toLowerCase()) {
+            case playsenum.Rock:
+                if (computerSelection === playsenum.Scissors) {
+                    msg = winningMsg;;
+                    winningChoice = playerSelection;
+                    losingChoice = computerSelection;
+                }
+                else if (computerSelection === playsenum.Paper)  {
+                    msg = losingMsg;
+                    winningChoice = computerSelection;
+                    losingChoice = playerSelection;
+                }
+                else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                    msg = tieMsg;
+                }
+            break;
+            case playsenum.Paper:
+                if (computerSelection === playsenum.Rock) {
+                    msg = winningMsg;
+                    winningChoice = playerSelection;
+                    losingChoice = computerSelection;
+                }
+                else if (computerSelection === playsenum.Scissors)  {
+                    msg = losingMsg;
+                    winningChoice = computerSelection;
+                    losingChoice = playerSelection;
+                }
+                else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                    msg = tieMsg;
+                }
+            break;
+            case playsenum.Scissors:
+                if (computerSelection === playsenum.Paper) {
+                    msg = winningMsg;
+                    winningChoice = playerSelection;
+                    losingChoice = computerSelection;
+                }
+                else if (computerSelection === playsenum.Rock)  {
+                    msg = losingMsg;
+                    winningChoice = computerSelection;
+                    losingChoice = playerSelection;
+                }
+                else if (playerSelection.toLowerCase() == computerSelection.toLowerCase()) {
+                    msg = tieMsg;
+                }
+            break;
+        }
+        return (msg != tieMsg) ?  `${msg}.\n${winningChoice} beats ${losingChoice}` : msg;
     }
     //#endregion
 </script>

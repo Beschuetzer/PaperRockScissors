@@ -1,6 +1,6 @@
 :root{
     --textbox_height: 5vmin;
-    --text_fontSize: 2.5vmin;
+    --text_fontSize: 2.256vmin;
     --color1:  rgba(114, 84, 3, 0.698);
     --margin_default: 15px;
     --instructions_height: 15vh;
@@ -11,7 +11,7 @@
     padding: 0px;
     box-sizing: border-box;
 }
-h2{
+h1{
     text-align: center;
     margin: calc(var(--margin_default)) 0;
     font-weight: 700;
@@ -27,18 +27,18 @@ p {
     font-size: calc(var(--text_fontSize)*1.25);
 }
 button:hover{
-    background-color:  rgb(39, 31, 31);
+    /*background-color:  rgb(39, 31, 31);*/
 }
 .container_content{ 
     position: relative;
-    background-color: w;
+    /*background-color: teal;*/
     color: black;
     width: 90%;
     height: 100vh;
     margin: auto;
 }
     .content{
-        background-color: green;
+        /*background-color: green;*/
         height: 100vh;
     }
         .btn_start{
@@ -47,25 +47,25 @@ button:hover{
             align-content: center;
         }
         .round_text{
-            background-color: orange;
+            /*background-color: orange;*/
             text-align: center;
             align-content: center;
             height: var(--instructions_height);
         }
         .choice_stuff{
-            background-color: yellow;
+            /*background-color: yellow;*/
             width: 100%;
             text-align: center;
         }
         .choice_buttons {
-            background-color: beige;
+            /*background-color: beige;*/
             display: flex;
             justify-content: center;
             align-content: center;
         }
             .btn_default{                
-                background-color: rgb(32, 32, 32);
-                color: white;
+                /*background-color: rgb(32, 32, 32);*/
+                color: rgb(82, 81, 81);
                 margin: auto;
                 border: 1px solid var(--color1);
                 max-height: 100%;
@@ -99,27 +99,26 @@ button:hover{
                 }
         .scoring{
             margin: var(--margin_default) 0;
-            background-color: purple;
+            /*background-color: purple;*/
             position: relative;
             max-width: 100%;
             width: 100%;
             display: grid;
             grid-template-columns: repeat(2, 50%);
             grid-template-rows: repeat(2, 50%);
-            border: 1px solid white;
             justify-items: center;
             align-items: center;
+            border: 1px dotted black;
         }
         .scoring div {
-            background-color: teal;
+            /*background-color: teal;*/
             justify-self: c;
 
         }
         
         .scoring :nth-child(n+3) div :nth-child(n+2){
-            background-color: yellow;
+            /*background-color: yellow;*/
             margin: 0 0 0 calc(var(--margin_default)/3);
-            border-right:1px solid black;
         }
         .score_header{
             font-size: calc(var(--text_fontSize)*1.75);
@@ -160,10 +159,11 @@ button:hover{
                 display: flex;
                 justify-content: center;
                 align-content: center;
+                border-bottom: 1px solid black;
                 width: 100%;
             }
             .computer_score_details{
-                background-color: red;
+                /*background-color: red;*/
                 grid-row: 2;
                 grid-column: 2;
                 display: grid;
@@ -183,7 +183,7 @@ button:hover{
 #textbox_number_of_games{
     max-height: cal(var(--textbox_height));
     height: calc(var(--textbox_height));
-    width: calc(var(--textbox_height));
+    width: calc(var(--textbox_height)*1.5);
     position: relative;
     top:2.5%;
     text-align: center;
