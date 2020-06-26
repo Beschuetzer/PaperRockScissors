@@ -1,3 +1,7 @@
+:root{
+    --textbox_height: 60px;
+    --text_fontSize: 2vh;
+}
 body{
 }
 h2{
@@ -9,10 +13,10 @@ h2{
 label {
     text-align: center;
     font-weight: 350;
-    font-size: 1.5vw;
+    font-size: calc(var(--text_fontSize)*1.5);
 }
 button:hover{
-    background-color:  rgb(39, 31, 31)  ;
+    background-color:  rgb(39, 31, 31);
 }
 .container_content{ 
     position: relative;
@@ -25,22 +29,59 @@ button:hover{
     .content{
         background-color: green;
         align-items: center;
+        display:flex;
+        justify-content: center;
+        height: 25vh;
     }
-        .choice_buttons {
+        .choice_stuff{
             position: absolute;
-            top: 75%;
-            background-color: white;
+            top: 66%;
+            background-color: yellow;
             width: 100%;
+            text-align: center;
+        }
+        .choice_buttons {
+            background-color: beige;
+
+            width: 100%;
+            height: calc(var(--text_fontSize)*17);
+            display: flex;
+            justify-content: center; 
+            align-items: flex-start;      
         }
             .btn_default{
                 background-color: rgb(32, 32, 32);
                 color: white;
                 border: 1px solid rgb(224, 224, 224);
-                height: 40px;
-                margin: center;
+                height: var(--textbox_height);
+                width: calc(var(--text_fontSize)*10);
             }
+            .btn_choice {
+                height: calc(var(--text_fontSize)*10);
+                width: calc(var(--text_fontSize)*10);
+                font-size: calc(var(--text_fontSize)*2);
+
+            }
+                #btn_rock{
+                    grid-column: 1;
+                }
+                #btn_paper{
+
+                }
+                #btn_scissors{
+
+                }
 
 #textbox_number_of_games{
-    width:40px;
+    max-height: cal(var(--textbox_height));
+    height: calc(var(--textbox_height));
+    width: calc(var(--textbox_height));
     text-align: center;
+    font-size: var(--text_fontSize);
+    margin: 0 15px;
+}
+#p_choice {
+    color:black;
+    font-size: calc(var(--text_fontSize)*2);
+    align-self: flex-start;
 }

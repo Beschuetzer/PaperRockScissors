@@ -12,11 +12,13 @@
             <label for="textbox_number_of_games">Number of Rounds to Play:</label>
             <input id="textbox_number_of_games" sty type="text">
             <button class="btn_default" onclick="game()">Start Game</button>
-
-            <div class="choice_buttons">
-                <button class="btn_default">Rock</button>
-                <button class="btn_default">Paper</button>
-                <button class="btn_default">Scissors</button>
+            <div class="choice_stuff">
+                <p id="p_choice">Make a choice</p>
+                <div class="choice_buttons">
+                    <button id="btn_rock" class="btn_default btn_choice">Rock</button>
+                    <button id="btn_paper" class="btn_default btn_choice">Paper</button>
+                    <button id="btn_scissors" class="btn_default btn_choice">Scissors</button>
+                </div>
             </div>
         </div>
     </div>
