@@ -4,6 +4,7 @@
     --color1:  rgba(114, 84, 3, 0.698);
     --margin_default: 15px;
     --instructions_height: 15vh;
+    --color_less_emphasis: rgba(0, 0, 0, 0.705);
 }
 *{
     margin: 0px;
@@ -22,9 +23,8 @@ label {
     font-size: calc(var(--text_fontSize)*1.5);
 }
 p {
-    color:rgb(32, 32, 32);
+    color: var(--color_less_emphasis);
     font-size: calc(var(--text_fontSize)*1.25);
-    vertical-align: top;
 }
 button:hover{
     background-color:  rgb(39, 31, 31);
@@ -106,19 +106,25 @@ button:hover{
             display: grid;
             grid-template-columns: repeat(2, 50%);
             grid-template-rows: repeat(2, 50%);
+            border: 1px solid white;
             justify-items: center;
             align-items: center;
         }
         .scoring div {
-            justify-self:center ;
-            align-self: center;
+            background-color: teal;
+            justify-self: c;
+
         }
         
-        .scoring :nth-last-child(n+3) p{
+        .scoring :nth-child(n+3) div :nth-child(n+2){
+            background-color: yellow;
+            margin: 0 0 0 calc(var(--margin_default)/3);
+            border-right:1px solid black;
+        }
+        .score_header{
             font-size: calc(var(--text_fontSize)*1.75);
             margin: 0 calc(var(--margin_default)/2);
-            align-self: center;
-            vertical-align: middle;
+
         }
         .scoring :nth-child(n+3) p{
             font-size: calc(var(--text_fontSize)*1.2);
@@ -130,20 +136,23 @@ button:hover{
                 display: flex;
                 justify-content: center;
                 align-content: center;
+                width: 100%;
+                border-right: 1px solid black;
+                border-bottom: 1px solid black;
+
             }
             .your_score_details{
-                background-color: red;
                 grid-row: 2;
                 grid-column: 1;
-                display: flex;
-                justify-content: space-between;
+                display: grid;
+                grid-template-columns: repeat(3, 33%);
+                max-width: 100%;
+                width: 100%;
+                justify-items: center;
+                border-right: 1px solid black;
             }
             .your_score_details *{
                 display: flex;
-            }
-            .your_score_details div :nth-child(n+2) {
-                margin: 0 0px;
-                align-self: center;
             }
             .computer_scores{
                 grid-row: 1;
@@ -151,13 +160,17 @@ button:hover{
                 display: flex;
                 justify-content: center;
                 align-content: center;
+                width: 100%;
             }
             .computer_score_details{
                 background-color: red;
                 grid-row: 2;
                 grid-column: 2;
-                display: flex;
-                justify-content: space-between;
+                display: grid;
+                max-width: 100%;
+                width: 100%;
+                grid-template-columns: repeat(3, 33%);
+                justify-items: center;
             }
             .computer_score_details *{
                 display: flex;
@@ -171,13 +184,16 @@ button:hover{
     max-height: cal(var(--textbox_height));
     height: calc(var(--textbox_height));
     width: calc(var(--textbox_height));
+    position: relative;
+    top:2.5%;
     text-align: center;
     font-size: calc(var(--text_fontSize)*2);
     margin: calc(var(--margin_default));
 }
 
 #instructions {
-    height: var(--instructions_height);
+    height: calc(var(--instructions_height));
     padding: calc(var(--instructions_height)/2.6) 0 0 0;
     font-weight: 600;
+    color: black;
 }
