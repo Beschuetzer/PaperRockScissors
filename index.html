@@ -223,7 +223,7 @@
             btn_paper.classList.remove('buttons_visible');
             btn_scissors.classList.remove('buttons_visible');
             let final_msg = getGameResult(score, roundsToPlay, lbl_your_wins, lbl_your_ties, lbl_your_losses, lbl_computer_wins, lbl_computer_ties, lbl_computer_losses);
-            instructions.textContent = your_wins >= roundsToPlay ? 'You got lucky THIS time...' : 'Was there ever any doubt who is superior???\n(Hint: It is not you)';
+            instructions.textContent = your_wins >= roundsToPlay ? 'You got lucky THIS time...' : 'Maybe next time?';
             reset();
         }
         roundsPlayed++;
