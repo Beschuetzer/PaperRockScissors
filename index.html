@@ -232,7 +232,7 @@
     function playOneRound (playerSelection, computerSelection){
         let msg, winningChoice, losingChoice, outcome = "";
         let winningMsg = `You win because random interference in mind reading...\nI though you would pick ${(computerSelection == playsenum.Rock) ? playsenum.Scissors : (computerSelection == playsenum.Paper) ? playsenum.Rock : playsenum.Paper}`;
-        let losingMsg = `You lose because the computer new you would pick ${playerSelection}...`;
+        let losingMsg = `You lose because the computer knew you would pick ${playerSelection}...`;
         let tieMsg = `Looks like a tie!  You both chose ${playerSelection}`;
         switch (playerSelection.toLowerCase()) {
             case playsenum.Rock:
